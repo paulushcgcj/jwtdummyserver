@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "75d53ce1-5685-4c15-b59c-a15e3d6b0dff",
+		"name": "JWT Dummy Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Dummy Test Call",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{URL}}/",
+					"protocol": "http",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "This is a dummy call, to test if your service is up and running. It don't require authentication, and will return a dummy text"
+			},
+			"response": [
+				{
+					"id": "76075f02-4c45-44d6-b5d5-1f720b0ed106",
+					"name": "Default Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{URL}}/",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Length",
+							"value": "19",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 29 Mar 2018 14:10:00 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "0",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff",
+							"name": "X-Content-Type-Options",
+							"description": "The only defined value, \"nosniff\", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY",
+							"name": "X-Frame-Options",
+							"description": "Clickjacking protection: \"deny\" - no rendering within a frame, \"sameorigin\" - no rendering if origin mismatch"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block",
+							"name": "X-XSS-Protection",
+							"description": "Cross-site scripting (XSS) filter"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Tue Jan 19 2038 01:14:07 GMT-0200 (E. South America Daylight Time)",
+							"httpOnly": true,
+							"domain": "localhost",
+							"path": "/",
+							"secure": false,
+							"value": "6D101F29EF87F214DDFBD7464DD0AE00",
+							"key": "JSESSIONID"
+						}
+					],
+					"body": "Hi I'm a Dummy Call"
+				}
+			]
+		},
+		{
+			"name": "Login Call",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9cd1b3e-e5f5-4a03-be30-4efe57002c5f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.environment.set(\"AUTHTOKEN\", postman.getResponseHeader(\"Authorization\"));",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"{{USERNAME}}\",\"password\":\"{{PASSWORD}}\"}"
+				},
+				"url": {
+					"raw": "http://{{URL}}/login",
+					"protocol": "http",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"login"
+					]
+				},
+				"description": "With this call, you will log into the system. All you have to do is change the username and password on the environment variables.\n\nAfter the call, the bearer token will be saved on the environemnt variable as well, to be used on other calls."
+			},
+			"response": []
+		},
+		{
+			"name": "Logged User Call",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AUTHTOKEN}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{URL}}/home",
+					"protocol": "http",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"home"
+					]
+				},
+				"description": "This call requires the user to be logged in to complete. The bearer token used is the one that is automaticaly saved during the Login Call"
+			},
+			"response": []
+		},
+		{
+			"name": "Random User Call Example",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://randomuser.me/api/?results=10",
+					"protocol": "https",
+					"host": [
+						"randomuser",
+						"me"
+					],
+					"path": [
+						"api",
+						""
+					],
+					"query": [
+						{
+							"key": "results",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
