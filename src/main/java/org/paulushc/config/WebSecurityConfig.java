@@ -24,6 +24,8 @@ import java.util.Arrays;
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    public static final String USERDATABASE_JSON = "./userdatabase.json";
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable().authorizeRequests()
@@ -31,38 +33,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-
-                // filtra requisições de login
                 .addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),UsernamePasswordAuthenticationFilter.class)
-
-                // filtra outras requisições para verificar a presença do JWT no header
                 .addFilterBefore(new JWTAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        if(Paths.get("./userdatabase.json").toFile().exists()){
-
+        if(Paths.get(USERDATABASE_JSON).toFile().exists()){
             log.info("Using userdatabase.json file with users");
-            UserModel[] users = new ObjectMapper().readValue(Paths.get("./userdatabase.json").toFile(), UserModel[].class);
-
+            UserModel[] users = new ObjectMapper().readValue(Paths.get(USERDATABASE_JSON).toFile(), UserModel[].class);
             populateUserDatabase(auth, users);
-
         }else {
-
             log.info("No userdatabase.json file found, consuming from randomuser.me and generating userdatabase.json");
-
             RestTemplate restTemplate = new RestTemplate();
             RandomUserResponse randomUserResponse = restTemplate.getForObject("https://randomuser.me/api/?results=10", RandomUserResponse.class);
-            new ObjectMapper().writeValue(Paths.get("./userdatabase.json").toFile(),randomUserResponse.getResults());
+            new ObjectMapper().writeValue(Paths.get(USERDATABASE_JSON).toFile(),randomUserResponse.getResults());
             populateUserDatabase(auth, randomUserResponse.getResults());
-
         }
     }
 
     private void populateUserDatabase(AuthenticationManagerBuilder auth, UserModel[] users) throws Exception {
         InMemoryUserDetailsManagerConfigurer inMemAuth = auth.inMemoryAuthentication();
+
+        log.info("Try one of this users: ");
+        Arrays.stream(users).forEach(userModel -> log.info("User: {} - login: {} password: {}",
+                userModel.getName().getFirst(),
+                userModel.getName().getLast(),
+                userModel.getLogin().getUsername(),
+                userModel.getLogin().getPassword()));
+
 
         Arrays.stream(users).forEach(userModel -> inMemAuth
             .withUser(userModel.getLogin().getUsername())
