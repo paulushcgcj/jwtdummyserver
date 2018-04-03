@@ -109,3 +109,4 @@ buildNumber.properties
 
 /userdatabase.json
 /data/
+/data/*

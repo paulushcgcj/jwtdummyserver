@@ -34,10 +34,21 @@ public class MainApp {
 
     @RequestMapping(value = "/api/**",produces = "application/json")
     public ResponseEntity bootData(HttpServletRequest httpServletRequest){
+        return getResponseEntityFromFile(httpServletRequest, "/api/");
+    }
+
+    @RequestMapping(value = "/open/**",produces = "application/json")
+    public ResponseEntity bootOpenData(HttpServletRequest httpServletRequest){
+        return getResponseEntityFromFile(httpServletRequest, "/open/");
+    }
+
+    private ResponseEntity getResponseEntityFromFile(HttpServletRequest httpServletRequest, String targetURL) {
 
         //Get the path to the requested file, I replace the api path to data folder, but I keep the file extension
         //As you may need to load external stuff
-        String requiredFilePath = httpServletRequest.getRequestURI().replace("/api/","./data/");
+        String requiredFilePath = httpServletRequest.getRequestURI().replace(targetURL,"./data/");
+
+        log.info("Requesting data from URL {} and trying to fetch data from {}",httpServletRequest.getRequestURI(),requiredFilePath);
 
         //First I check if the file exists
         if(Paths.get(requiredFilePath).toFile().exists()){
