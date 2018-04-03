@@ -1,14 +1,20 @@
 package org.paulushc.service;
 
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.paulushc.config.WebSecurityConfig;
+import org.paulushc.model.UserModel;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
@@ -32,6 +38,7 @@ public class TokenAuthenticationService {
                 .compact();
 
         response.addHeader(HEADER_STRING, TOKEN_PREFIX + jwt);
+        response.addHeader("User",username);
     }
 
     public static Authentication getAuthentication(HttpServletRequest request) {
@@ -44,7 +51,12 @@ public class TokenAuthenticationService {
                     .getSubject();
 
             if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+
+                try {
+                    UserModel[] users = new ObjectMapper().readValue(Paths.get(WebSecurityConfig.USERDATABASE_JSON).toFile(), UserModel[].class);
+                    Optional<UserModel> userModel = Arrays.stream(users).filter(userTemp -> userTemp.getLogin().getUsername().equals(user)).findFirst();
+                    return new UsernamePasswordAuthenticationToken(userModel.orElse(new UserModel()), user, Collections.emptyList());
+                }catch (Exception e){ log.error("Error while trying to convert user list",e);}
             }
         }
         return null;

@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         InMemoryUserDetailsManagerConfigurer inMemAuth = auth.inMemoryAuthentication();
 
         log.info("Try one of this users: ");
-        Arrays.stream(users).forEach(userModel -> log.info("User: {} - login: {} password: {}",
+        Arrays.stream(users).forEach(userModel -> log.info("User: {} {} - login: {} password: {}",
                 userModel.getName().getFirst(),
                 userModel.getName().getLast(),
                 userModel.getLogin().getUsername(),
