@@ -1,0 +1,43 @@
+{
+  "fulfillmentText": "Desculpe, mas você não pode receber esses dados, seu pobre",
+  "fulfillmentMessages": [
+    {
+      "card": {
+        "title": "SurgicalFinance",
+        "subtitle": "Emprestimo Negado",
+        "imageUri": "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
+        "buttons": [
+          {
+            "text": "OK",
+            "postback": "https://assistant.google.com/"
+          }
+        ]
+      }
+    }
+  ],
+  "source": "finance.surgicalgoblins.com",
+  "payload": {
+    "google": {
+      "expectUserResponse": true,
+      "richResponse": {
+        "items": [
+          {
+            "simpleResponse": {
+              "textToSpeech": "Desculpe, mas você não pode receber esses dados, seu pobre"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "outputContexts": [
+    {
+      "name": "projects/surgicalfinance/agent/sessions/91f6de47-2044-4942-96a3-89311aefdcfe/contexts/solicitaremprestimo-valor-followup",
+      "lifespanCount": 5,
+      "parameters": {
+        "RESULT": "DENIED",
+        "REASON": "CANT AFFORD"
+      }
+    }
+  ]
+}
