@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.stream.Collectors;
 
 @SpringBootApplication
 @RestController
@@ -49,6 +50,8 @@ public class MainApp {
         String requiredFilePath = httpServletRequest.getRequestURI().replace(targetURL,"./data/");
 
         log.info("Requesting data from URL {} and trying to fetch data from {}",httpServletRequest.getRequestURI(),requiredFilePath);
+        try{ log.info("Requested by {} with {}",httpServletRequest.getRemoteAddr(),httpServletRequest.getReader().lines().collect(Collectors.joining(System.lineSeparator()))); }catch (Exception e){ log.error("Error while trying to get some info"); }
+
 
         //First I check if the file exists
         if(Paths.get(requiredFilePath).toFile().exists()){
