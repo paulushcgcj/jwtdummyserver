@@ -1,1 +1,1 @@
-web: cp target/jwt-dummy-server-1.0.0.jar ./ && java -jar jwt-dummy-server-1.0.0.jar
+web: cp target/jwt-dummy-server-1.0.0.jar ./ && java -jar jwt-dummy-server-1.0.0.jar --server.port=80
