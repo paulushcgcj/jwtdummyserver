@@ -18,8 +18,8 @@ jobs:
           - v1-dependencies-
 
       - run:
-        name: Dependencies Checking
-        command: mvn dependency:go-offline
+          name: Dependencies Checking
+          command: mvn dependency:go-offline
 
       - save_cache:
           paths:
@@ -28,12 +28,25 @@ jobs:
 
 
       - run:
-        name: Unit Tests
-        command: mvn test
+          name: Unit Tests
+          command: mvn test
 
       - run:
-        name: Integration Tests
-        command: mvn integration-test
+          name: Integration Tests
+          command: mvn integration-test
+
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/junit/
+            find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/junit/ \;
+          when: always
+
+      - store_test_results:
+          path: ~/junit
+
+      - store_artifacts:
+          path: ~/junit
 
   build:
     docker:
@@ -53,8 +66,8 @@ jobs:
           - v1-dependencies-
 
       - run:
-        name: Dependencies Checking
-        command: mvn dependency:go-offline
+          name: Dependencies Checking
+          command: mvn dependency:go-offline
 
       - save_cache:
           paths:
@@ -64,11 +77,14 @@ jobs:
       # run tests!
       - run: mvn package -DskipTests
 
-  deployment:
-    staging:
-      branch: master
-      heroku:
-        appname: jwtdummysrv
+      - store_artifacts:
+          path: ~/repo/target/jwt-dummy-server-1.0.0.jar
+
+      - deploy:
+          staging:
+            branch: master
+            heroku:
+              appname: jwtdummysrv
 
 workflows:
   version: 2
