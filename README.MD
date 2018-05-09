@@ -1,4 +1,5 @@
 # JWT Dummy Server
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c20273d454fe4ce38ccbbdaaa46ebded)](https://app.codacy.com/app/paulushc/jwtdummyserver?utm_source=github.com&utm_medium=referral&utm_content=paulushcgcj/jwtdummyserver&utm_campaign=badger)
 [![CircleCI](https://circleci.com/gh/paulushcgcj/jwtdummyserver/tree/master.svg?style=svg)](https://circleci.com/gh/paulushcgcj/jwtdummyserver/tree/master)
 [![codecov](https://codecov.io/gh/paulushcgcj/jwtdummyserver/branch/master/graph/badge.svg)](https://codecov.io/gh/paulushcgcj/jwtdummyserver)
 
