@@ -1,4 +1,5 @@
 # JWT Dummy Server
+[![CircleCI](https://circleci.com/gh/paulushcgcj/jwtdummyserver/tree/master.svg?style=svg)](https://circleci.com/gh/paulushcgcj/jwtdummyserver/tree/master)
 
 **Have you ever tried to learn something new and bumped into a technical limitation?**
 
