@@ -64,17 +64,15 @@ jobs:
       # run tests!
       - run: mvn package -DskipTests
 
-
-
   deployment:
     staging:
       branch: master
       heroku:
         appname: jwtdummysrv
 
-  workflows:
-    version: 2
-    build_and_test:
-      jobs:
-        - test
-        - build
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test
+      - build
