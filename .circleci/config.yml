@@ -1,8 +1,7 @@
 version: 2
 jobs:
-  build:
+  test:
     docker:
-      # specify the version you desire here
       - image: circleci/openjdk:8-jdk
 
     working_directory: ~/repo
@@ -18,7 +17,44 @@ jobs:
           - v1-dependencies-{{ checksum "pom.xml" }}
           - v1-dependencies-
 
-      - run: mvn dependency:go-offline
+      - run:
+        name: Dependencies Checking
+        command: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
+
+      - run:
+        name: Unit Tests
+        command: mvn test
+
+      - run:
+        name: Integration Tests
+        command: mvn integration-test
+
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk
+
+    working_directory: ~/repo
+
+    environment:
+      MAVEN_OPTS: -Xmx3200m
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "pom.xml" }}
+          - v1-dependencies-
+
+      - run:
+        name: Dependencies Checking
+        command: mvn dependency:go-offline
 
       - save_cache:
           paths:
@@ -26,11 +62,19 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       # run tests!
-      - run: mvn integration-test
+      - run: mvn package -DskipTests
 
-deployment:
-  staging:
-    branch: master
-    heroku:
-      appname: jwtdummysrv
 
+
+  deployment:
+    staging:
+      branch: master
+      heroku:
+        appname: jwtdummysrv
+
+  workflows:
+    version: 2
+    build_and_test:
+      jobs:
+        - test
+        - build
