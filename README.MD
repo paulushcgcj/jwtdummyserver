@@ -2,7 +2,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c20273d454fe4ce38ccbbdaaa46ebded)](https://app.codacy.com/app/paulushc/jwtdummyserver?utm_source=github.com&utm_medium=referral&utm_content=paulushcgcj/jwtdummyserver&utm_campaign=badger)
 [![CircleCI](https://circleci.com/gh/paulushcgcj/jwtdummyserver/tree/master.svg?style=svg)](https://circleci.com/gh/paulushcgcj/jwtdummyserver/tree/master)
 [![codecov](https://codecov.io/gh/paulushcgcj/jwtdummyserver/branch/master/graph/badge.svg)](https://codecov.io/gh/paulushcgcj/jwtdummyserver)
-[![Codacy coverage](https://img.shields.io/codacy/coverage/c44df2d9c89a4809896914fd1a40bedd.svg)](https://gitlab.com/tracking.com/gateway/tags)
+[![Codacy coverage](https://img.shields.io/codacy/coverage/c20273d454fe4ce38ccbbdaaa46ebded.svg)](https://app.codacy.com/app/paulushc/jwtdummyserver?utm_source=github.com&utm_medium=referral&utm_content=paulushcgcj/jwtdummyserver&utm_campaign=badger)
 
 
 [![Github All Releases](https://img.shields.io/github/downloads/paulushcgcj/jwtdummyserver/total.svg)](https://github.com/paulushcgcj/jwtdummyserver)
