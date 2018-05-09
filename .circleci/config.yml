@@ -27,7 +27,6 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
-
       - run:
           name: Unit Tests
           command: mvn test
@@ -48,8 +47,6 @@ jobs:
             mkdir -p ~/junit/
             find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/junit/ \;
           when: always
-
-
 
       - store_test_results:
           path: ~/junit
@@ -101,7 +98,6 @@ jobs:
           name: Deploy Master to Heroku
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
-
 
 workflows:
   version: 2
