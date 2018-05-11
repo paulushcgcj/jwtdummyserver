@@ -24,11 +24,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Slf4j
 public class TokenAuthenticationService {
 
-    private TokenAuthenticationService(){ /* Created to prevent Initialization */}
-
     private static final String SECRET = "org.paulushc.secret";
     private static final String TOKEN_PREFIX = "Bearer ";
     private static final String HEADER_STRING = "Authorization";
+
+    private TokenAuthenticationService(){ /* Created to prevent Initialization */}
 
     public static void addAuthentication(HttpServletResponse response, String username) {
         String jwt = generateJWT(username);
