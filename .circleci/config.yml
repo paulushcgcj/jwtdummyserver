@@ -100,7 +100,7 @@ jobs:
 
       - run:
           name: Upload Artficact to Bintray
-          command: mvn deploy --settings settings_bintray.xml -Dinternal.repo.username=${BINTRAY_USERNAME} -Dinternal.repo.pwd=${BINTRAY_PASSWORD}
+          command: mvn package javadoc:jar deploy --settings settings_bintray.xml -Dinternal.repo.username=${BINTRAY_USERNAME} -Dinternal.repo.pwd=${BINTRAY_PASSWORD}
 
 workflows:
   version: 2

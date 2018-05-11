@@ -23,10 +23,18 @@ This dummyplug would not be possible without the internet, and I had based it on
 
 ## How to run it
 
-if you have a java environment where you can build apps, just run `mvnw clean package`, but you will need JDK 1.8 at least. if you don't have, just download the latest build from GitHub.
+if you have a java environment where you can build apps, just run `mvnw clean package`, but you will need JDK 1.8 at least. if you don't have, just download the latest build from [GitHub](https://github.com/paulushcgcj/jwtdummyserver/releases) or from [BinTray](https://bintray.com/paulushc/org.paulushc/download_file?file_path=org%2Fpaulushc%2Fjwt-dummy-server%2F1.0.0%2Fjwt-dummy-server-1.0.0.jar).
 
 ## How to test it
 
 I recomment [Postman](https://www.getpostman.com/), because it's faster. Included on this project, you will find a Collection and an Environment file to be used on Postman. Have a try, play with it, and once you are confortable with the dynamics of the dummyplug, write your app to consume it.
 
 To consume it, call the service url (normally http://localhost:8080/login) and send a json body with username and password like this `{"username":"paulo","password":"secret"}`. You don't need to encrypt your password to send it, remember it's just a dummy plug to test, so let's cut the complexity level to the lowest possible.
+
+# JWT Dummy Server Release Notes
+
+## Version 1.0
+
+- Added the initial version
+- Supporting authorized and open urls
+- Added some code to log error
