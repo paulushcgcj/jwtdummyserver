@@ -2,7 +2,7 @@
 <settings xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd'
           xmlns='http://maven.apache.org/SETTINGS/1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
           <servers>
-            <server> <id>bintray-paulushc-org.paulushc</id> <username>${internal.repo.username}paulushc</username> <password>49787cf1f87b13f69022edd24f6172906bee604e</password> </server>
+            <server> <id>bintray-paulushc-org.paulushc</id> <username>${internal.repo.username}</username> <password>${internal.repo.pwd}</password> </server>
           </servers>
     <profiles>
         <profile>
