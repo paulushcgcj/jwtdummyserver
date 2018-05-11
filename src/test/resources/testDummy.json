@@ -1,0 +1,36 @@
+{
+  "gender": "male",
+  "name": {
+    "title": "mr",
+    "first": "hugo",
+    "last": "vargas"
+  },
+  "location": {
+    "street": "2200 calle covadonga",
+    "city": "pamplona",
+    "state": "comunidad de madrid"
+  },
+  "login": {
+    "username": "redfish816",
+    "password": "masamune",
+    "salt": "cIloEPQz",
+    "md5": "aba35497e3d71f2631f84def4a4ee2a6",
+    "sha1": "eb5b253b426a4ca0f80b275d0aed552e292ae0ce",
+    "sha256": "babca001199cde4d19d01223cf622c337749973ba99793e67da7dfb57e6a7747"
+  },
+  "id": {
+    "name": "DNI",
+    "value": "18142292-N"
+  },
+  "picture": {
+    "large": "https://randomuser.me/api/portraits/men/67.jpg",
+    "medium": "https://randomuser.me/api/portraits/med/men/67.jpg",
+    "thumbnail": "https://randomuser.me/api/portraits/thumb/men/67.jpg"
+  },
+  "email": "hugo.vargas@example.com",
+  "phone": "939-057-105",
+  "cell": "622-402-776",
+  "nat": "ES",
+  "dob": "1948-03-17 10:17:49",
+  "registered": "2010-08-12 10:47:21"
+}

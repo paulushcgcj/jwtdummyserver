@@ -31,14 +31,18 @@ public class TokenAuthenticationService {
     private static final String HEADER_STRING = "Authorization";
 
     public static void addAuthentication(HttpServletResponse response, String username) {
-        String jwt = Jwts.builder()
-                .setSubject(username)
-                .setExpiration(genExpiration())
-                .signWith(SignatureAlgorithm.HS512, SECRET)
-                .compact();
+        String jwt = generateJWT(username);
 
         response.addHeader(HEADER_STRING, TOKEN_PREFIX + jwt);
         response.addHeader("User",username);
+    }
+
+    public static String generateJWT(String username) {
+        return Jwts.builder()
+                    .setSubject(username)
+                    .setExpiration(genExpiration())
+                    .signWith(SignatureAlgorithm.HS512, SECRET)
+                    .compact();
     }
 
     public static Authentication getAuthentication(HttpServletRequest request) {
