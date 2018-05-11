@@ -14,6 +14,7 @@ public class TestHelpers {
 
     public static void copyBulbasaur() throws IOException {
         File bulbasaurFile = ResourceUtils.getFile("classpath:bulbasaur.json");
+        Paths.get("./data/bulbasaur.json").getParent().toFile().mkdirs();
         Files.copy(bulbasaurFile.toPath(), Paths.get("./data/bulbasaur.json"), StandardCopyOption.REPLACE_EXISTING);
     }
 
