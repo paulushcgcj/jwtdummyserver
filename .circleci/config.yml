@@ -101,7 +101,7 @@ jobs:
       - run:
           name: Upload Artficact to Bintray
           command: |
-            mvn ${MAVEN_CLI_OPTS} versions:set -DnewVersion="1.0.${CIRCLE_BUILD_NUM}"'
+            mvn ${MAVEN_CLI_OPTS} versions:set -DnewVersion="${CIRCLE_TAG}"'
             mvn ${MAVEN_CLI_OPTS} versions:commit'
             mvn package javadoc:jar deploy --settings settings_bintray.xml -Dinternal.repo.username=${BINTRAY_USERNAME} -Dinternal.repo.pwd=${BINTRAY_PASSWORD}
 
@@ -113,9 +113,18 @@ workflows:
       - build:
           requires:
             - test
-      - deploy:
-          requires:
-            - build
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^([0-9])\.([0-9])+\.([0-9])+/
+              ignore: /^v.*/
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^([0-9])\.([0-9])+\.([0-9])+/
+              ignore: /^v.*/
