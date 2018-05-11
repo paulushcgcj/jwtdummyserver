@@ -7,6 +7,11 @@
     <groupId>org.paulushc</groupId>
     <artifactId>jwt-dummy-server</artifactId>
     <version>1.0.0</version>
+    <name>JWT Dummy Server</name>
+    <description>JSON Web Token Dummy Server is a dummy plug used to simulate a backend with JWT Token Authentication
+        without writing any line of code
+    </description>
+    <url>https://github.com/paulushcgcj/jwtdummyserver</url>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -71,19 +76,123 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.7</version>
-                <configuration>
-                    <formats>
-                        <format>html</format>
-                        <format>xml</format>
-                    </formats>
-                    <check />
-                </configuration>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.18.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.21.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.1</version>
+                <executions>
+                    <execution>
+                        <id>pre-unit-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/libs-release</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <name>libs-release</name>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-releases</id>
+            <url>https://repo.spring.io/libs-release</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>central</id>
+            <name>Maven Plugin Repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <organization>
+        <name>Paulo Gomes</name>
+        <url>https://paulushcgcj.github.io</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>GNU General Public License v3.0</name>
+            <url>https://raw.githubusercontent.com/paulushcgcj/jwtdummyserver/master/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>paulo</id>
+            <name>Paulo Gomes da Cruz Junior</name>
+            <email>paulushc@gmail.com</email>
+            <roles>
+                <role>project lead</role>
+            </roles>
+            <timezone>America/Sao_Paulo</timezone>
+            <properties>
+                <skype>paulushc</skype>
+            </properties>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:https://github.com/paulushcgcj/jwtdummyserver</connection>
+        <developerConnection>scm:git:https://github.com/paulushcgcj/jwtdummyserver</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/paulushcgcj/jwtdummyserver</url>
+    </scm>
+    <ciManagement>
+        <system>CircleCI</system>
+        <url>https://circleci.com/gh/paulushcgcj/jwtdummyserver</url>
+    </ciManagement>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/paulushcgcj/jwtdummyserver/issues</url>
+    </issueManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>bintray-paulushc-org.paulushc</id>
+            <name>paulushc-org.paulushc</name>
+            <url>https://api.bintray.com/maven/paulushc/org.paulushc/jwtdummyserver/;publish=1</url>
+        </repository>
+    </distributionManagement>
 
 </project>

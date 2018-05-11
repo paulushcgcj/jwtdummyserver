@@ -8,7 +8,6 @@ jobs:
 
     environment:
       MAVEN_OPTS: -Xmx3200m
-      CODECOV_TOKEN: 195dc785-4db4-42ad-bc64-0f2e1344eab8
 
     steps:
       - checkout
@@ -38,8 +37,8 @@ jobs:
       - run:
           name: Code Coverage
           command: |
-            mvn cobertura:cobertura
-            bash <(curl -s https://codecov.io/bash)
+            mvn verify -P all-tests
+            mvn com.gavinmogan:codacy-maven-plugin:coverage -D coverageReportFile=target/site/jacoco/jacoco.xml -D projectToken=${CODACY_PROJ_TK} -D apiToken=${CODACY_API_TK}
 
       - run:
           name: Save test results
@@ -98,6 +97,10 @@ jobs:
           name: Deploy Master to Heroku
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+
+      - run:
+          name: Upload Artficact to Bintray
+          command: mvn deploy --settings settings_bintray.xml -Dinternal.repo.username=${BINTRAY_USERNAME} -Dinternal.repo.pwd=${BINTRAY_PASSWORD}
 
 workflows:
   version: 2
